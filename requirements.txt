@@ -1,10 +1,13 @@
+tensorflow
 pandas
 numpy
 matplotlib
 seaborn
 scikit-learn
-pytorch
 scipy
 jupyter
 netCDF4
 cartopy
+rasterio
+geopandas
+opencv-python
