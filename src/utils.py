@@ -106,6 +106,17 @@ def expand_array_elements(data):
         
     return data
 
+def expand_array_elements(data):
+    """
+    This function takes a list of sublists where each sublist starts with a numpy array.
+    """
+    for i in range(len(data)):
+        # Convert the numpy array (first element) to a list and extend the sublist with its elements
+        array_elements = data[i][0].tolist()  # Convert the np.array to a list
+        data[i] = array_elements + data[i][1:]  # Merge
+        
+    return data
+
 if __name__ == "__main__":
     path = "data/dataset.csv"
     df = get_dataset(path)
