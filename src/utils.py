@@ -31,6 +31,21 @@ def rasterize_polygon(poly, out_shape=(100, 100)):
     img = rasterize([poly], out_shape=out_shape, transform=transform)
     return img
 
+def get_inverse_transform(poly, out_shape=(100, 100)):
+    """Rasterizes a given Polygon to a 2D array."""
+    minx, miny, maxx, maxy = poly.bounds
+    transform = rasterio.transform.from_bounds(minx, miny, maxx, maxy, out_shape[1], out_shape[0])
+    return transform.inverse
+
+def apply_inverse(inverse_transformation, poly):
+    coords = []
+    
+    for x, y in poly.exterior.coords:
+        lon, lat = inverse_transformation * (x, y)
+        coords.append((lon, lat))
+    transformed_polygon = Polygon(coords[0], coords[1:] if len(coords) > 1 else [])
+    return transformed_polygon, coords
+
 def get_dataset(path):
     """Reads a CSV file with WKT geometries, processes polygons, and rasterizes them."""
     # Load CSV as GeoDataFrame
