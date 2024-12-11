@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>California Fire Analysis</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 500px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>California Fire</h1>
+    
+    <!-- Form to upload CSV -->
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <label for="file">Upload .csv File:</label>
+        <input type="file" name="file" id="file" accept=".csv" required>
+        <button type="submit">Upload</button>
+    </form>
+    
+    
+    <!-- Embedded Map -->
+    <h2>Map with Polygon</h2>
+    <div id="map"></div>
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([37.7749, -122.4194], 6); // Centered on California
+
+        // Add a tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Load the polygon data from the Flask app
+    </script>
+</body>
+</html>
